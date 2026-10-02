@@ -23,21 +23,75 @@ const notoSerifSinhala = Noto_Serif_Sinhala({
 });
 
 export const metadata: Metadata = {
-  title: "Ayu Zeylan (ආයු සිලෝන්) - ගම්පහ වෙද ආරච්චි පාරම්පරික ආයුර්වේද ඖෂධ",
+  metadataBase: new URL("https://ayu-ceylon.vercel.app"),
+  title: {
+    default: "Ayu Zeylan (ආයු සිලෝන්) - ගම්පහ වෙද ආරච්චි පාරම්පරික ආයුර්වේද ඖෂධ",
+    template: "%s | Ayu Zeylan",
+  },
   description:
     "ගම්පහ වෙද ආරච්චි පාරම්පරික පරපුරෙන් එන 100% ක් ස්වභාවික ආයුර්වේද තෛල, පස්පංගුව, පැණි සහ චූර්ණ වර්ග ඔබගේ නිවසටම ගෙන්වා ගන්න. Traditional Sri Lankan Ayurvedic Remedies.",
   keywords: [
     "Ayu Zeylan",
+    "ආයු සිලෝන්",
     "ගම්පහ වෙද ආරච්චි",
+    "Gampaha Wedaarachchi",
     "Sinhala medicine",
     "Ayurvedic oils Sri Lanka",
     "සිද්ධාර්ථ තෛලය",
     "නීල්‍යාදී තෛලය",
     "පස්පංගුව",
+    "හෙළ වෙදකම",
+    "Sri Lankan Ayurveda",
+    "Traditional Herbal Remedies",
   ],
+  authors: [{ name: "Ayu Zeylan - Gampaha Wedaarachchi Heritage" }],
+  creator: "Ayu Zeylan",
+  publisher: "Ayu Zeylan",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "si_LK",
+    alternateLocale: ["en_US"],
+    url: "https://ayu-ceylon.vercel.app",
+    siteName: "Ayu Zeylan - ගම්පහ වෙද ආරච්චි",
+    title: "Ayu Zeylan (ආයු සිලෝන්) - ගම්පහ වෙද ආරච්චි පාරම්පරික ආයුර්වේද ඖෂධ",
+    description:
+      "ගම්පහ වෙද ආරච්චි පාරම්පරික පරපුරෙන් එන 100% ක් ස්වභාවික ආයුර්වේද තෛල, පස්පංගුව, පැණි සහ චූර්ණ වර්ග ඔබගේ නිවසටම ගෙන්වා ගන්න. Traditional Sri Lankan Ayurvedic Remedies.",
+    images: [
+      {
+        url: "/branding/hero-banner.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ayu Zeylan Traditional Sri Lankan Ayurvedic Remedies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ayu Zeylan (ආයු සිලෝන්) - ගම්පහ වෙද ආරච්චි පාරම්පරික ආයුර්වේද ඖෂධ",
+    description:
+      "ගම්පහ වෙද ආරච්චි පාරම්පරික පරපුරෙන් එන 100% ක් ස්වභාවික ආයුර්වේද තෛල, පස්පංගුව, පැණි සහ චූර්ණ වර්ග.",
+    images: ["/branding/hero-banner.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/branding/logo.png",
     apple: "/branding/logo.png",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   },
 };
 

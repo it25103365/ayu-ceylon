@@ -20,9 +20,28 @@ export async function generateMetadata({ params }: PageProps) {
     };
   }
 
+  const title = `${medicine.nameSi} (${medicine.nameEn})`;
+  const description = medicine.descriptionSi || medicine.descriptionEn;
+  const canonicalUrl = `/medicine/${medicine.slug || medicine.id}`;
+
   return {
-    title: `${medicine.nameSi} (${medicine.nameEn}) - Ayu Zeylan`,
-    description: medicine.descriptionSi,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${title} | Ayu Zeylan`,
+      description,
+      url: `https://ayu-ceylon.vercel.app${canonicalUrl}`,
+      images: medicine.imageUrl ? [{ url: medicine.imageUrl, alt: title }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Ayu Zeylan`,
+      description,
+      images: medicine.imageUrl ? [medicine.imageUrl] : undefined,
+    },
   };
 }
 
