@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdminApi } from "@/lib/adminGuard";
-import { writeFile, mkdir } from "node:fs/promises";
-import path from "node:path";
 
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 Megabytes
@@ -89,34 +87,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 4. Determine safe extension from detected type (not from user-supplied filename)
-    const extMap: Record<string, string> = {
-      "image/jpeg": ".jpg",
-      "image/png": ".png",
-      "image/webp": ".webp",
-    };
-    const safeExt = extMap[magicCheck.detectedType] || ".jpg";
-
-    // 5. Save to public/uploads directory with sanitized filename
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
-
-    const cleanBase = path
-      .basename(file.name, path.extname(file.name))
-      .replace(/[^a-zA-Z0-9_-]/g, "_")
-      .toLowerCase()
-      .slice(0, 50); // Limit filename length
-    const fileName = `${Date.now()}-${cleanBase}${safeExt}`;
-    const filePath = path.join(uploadsDir, fileName);
-
-    await writeFile(filePath, buffer);
-
-    const publicUrl = `/uploads/${fileName}`;
+    // 4. Convert image buffer to base64 Data URL (serverless/read-only filesystem compatible)
+    const base64 = buffer.toString("base64");
+    const mimeType = magicCheck.detectedType || file.type || "image/jpeg";
+    const dataUrl = `data:${mimeType};base64,${base64}`;
 
     return NextResponse.json({
       success: true,
       message: "ඡායාරූපය සාර්ථකව උඩුගත කරන ලදී (Image uploaded successfully)",
-      url: publicUrl,
+      url: dataUrl,
     });
   } catch (error) {
     console.error("Image upload error:", error instanceof Error ? error.message : "Unknown error");
