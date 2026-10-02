@@ -1,0 +1,68 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Medicine {
+  id            String      @id @default(cuid())
+  nameSi        String
+  nameEn        String
+  slug          String      @unique
+  category      String
+  price         Float
+  stock         Int         @default(0)
+  descriptionSi String
+  descriptionEn String
+  ingredientsSi String?
+  ingredientsEn String?
+  usageSi       String?
+  usageEn       String?
+  imageUrl      String
+  featured      Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  orderItems    OrderItem[]
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  orderNumber   String      @unique
+  customerName  String
+  customerPhone String
+  address       String
+  city          String
+  notes         String?
+  paymentMethod String      @default("COD")
+  status        String      @default("PENDING")
+  totalAmount   Float
+  items         OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id           String    @id @default(cuid())
+  orderId      String
+  order        Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  medicineId   String?
+  medicine     Medicine? @relation(fields: [medicineId], references: [id], onDelete: SetNull)
+  medicineName String
+  price        Float
+  quantity     Int
+  subtotal     Float
+}

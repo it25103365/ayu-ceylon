@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --color-forest: #143d2b;
+  --color-forest-dark: #0c281c;
+  --color-emerald-deep: #1e5238;
+  --color-gold: #c5a059;
+  --color-gold-light: #dfc282;
+  --color-gold-dark: #9f7b30;
+  --color-cream: #faf7f0;
+  --color-cream-light: #fdfcf9;
+  --color-sand: #f0ebe1;
+  --color-charcoal: #232b26;
+  --color-muted: #5e6b63;
+}
+
+body {
+  background-color: var(--color-cream-light);
+  color: var(--color-charcoal);
+  font-family: var(--font-sinhala), var(--font-latin), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom herbal scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ede3;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5a059;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #143d2b;
+}
+
+/* Botanical subtle pattern utility */
+.bg-botanical-pattern {
+  background-color: #143d2b;
+  background-image: radial-gradient(#2d6a4f 0.75px, transparent 0.75px), radial-gradient(#2d6a4f 0.75px, #143d2b 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+.font-serif-sinhala {
+  font-family: var(--font-sinhala-serif), Georgia, serif;
+}
